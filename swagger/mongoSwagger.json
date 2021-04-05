@@ -1,0 +1,154 @@
+{
+  "paths": {
+    "/v3/area/name/{district}": {
+      "get": {
+        "tags": [
+            "Area"
+        ],
+        "description": "Search district, match by letter",
+        "parameters": [
+          {
+            "name": "district",
+            "in": "path",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+                "type": "string"
+            },
+            "example": "Cengkareng"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Response API",
+            "content": {
+              "application/json": {
+                "schema": {
+                    "type": "string"
+                },
+                "examples": {
+                  "0": {},
+                  "1": {
+                    "value": {
+                      "statusCode": 400,
+                      "error": {
+                          "message": "Can’t get data, invalid parameters",
+                          "code": "EG02",
+                          "uri": "/v3/customers/create"
+                      },
+                      "references": "https://gitlab.com/aprizal/apiv3test/-/wikis/Halowiki-API-Error-Code-Meaning-List"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error Bearer Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                },
+                "examples": {
+                  "0": {
+                    "value": "{\n    \"error\": {\n        \"message\":\"UnAuthorized Permission Denied\"\n    }\n}"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v3/area/cost": {
+        "post": {
+            "tags": [
+                "Area"
+            ],
+            "description": "Calculate shipping cost",
+            "parameters": [
+                {
+                    "name": "token",
+                    "in": "header",
+                    "required": false,
+                    "style": "simple",
+                    "explode": false,
+                    "schema": {
+                        "type": "string"
+                    },
+                    "description": "Vendor Token (Get when user register)",
+                    "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxOTQsInBob25lIjoiKzYyODIzMTY4OTI5NDIiLCJpYXQiOjE1ODU4MDE4MzAsImV4cCI6MTU4NTgwMTgzMH0.bkV0UH_qeArsNgF45tfAFfle-sYKANiPcdBI_0zA0pY"
+                }
+            ],
+            "requestBody": {
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/body"
+                        },
+                        "examples": {
+                            "0": {
+                                "value": "{\r\n    \"weight\":500,\r\n    \"courier\":\"sicepat\",\r\n    \"destination\":\"2087\"\r\n}\r\n"
+                            }
+                        }
+                    }
+                }
+            },
+            "responses": {
+                "200": {
+                    "description": "Response API",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "string"
+                            },
+                            "examples": {
+                                "0": {},
+                                "1": {
+                                    "value": {
+                                        "statusCode": 400,
+                                        "error": {
+                                            "message": "Can’t get data, invalid parameters",
+                                            "code": "EG02",
+                                            "uri": "/v3/customers/create"
+                                        },
+                                        "references": "https://gitlab.com/aprizal/apiv3test/-/wikis/Halowiki-API-Error-Code-Meaning-List"
+                                    }
+                                },
+                                "2": {
+                                    "value": {
+                                        "statusCode": 403,
+                                        "error": {
+                                            "message": "unauthorized permission denied",
+                                            "code": "SK01",
+                                            "uri": "/v3/area/cost"
+                                        },
+                                        "references": "https://gitlab.com/aprizal/apiv3test/-/wikis/Halowiki-API-Error-Code-Meaning-List"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "500": {
+                    "description": "Error Bearer Response",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "string"
+                            },
+                            "examples": {
+                                "0": {
+                                    "value": "{\n    \"error\": {\n        \"message\":\"UnAuthorized Permission Denied\"\n    }\n}"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+  }
+}
